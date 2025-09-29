@@ -26,6 +26,7 @@ def load_data(year):
     df = html[0]
     raw = df.drop(df[df.Age == 'Age'].index) # Deletes repeating headers
     raw = raw.fillna(0)
+    raw = raw.drop_duplicates(keep='first')
     playerstats = raw.drop(['Rk'], axis=1)
     return playerstats
 playerstats = load_data(selected_year)
@@ -167,3 +168,4 @@ if st.button('Show Player Grade'):
     player = player_data[['Rank', 'Player', 'Team', 'Pos', 'Rec', 'Yds', 'Receiving Grade']].round(2)
 
     st.write(player)
+
