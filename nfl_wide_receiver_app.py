@@ -158,11 +158,12 @@ st.write(rank_df[['Rank','Player', 'Team', 'Pos', 'Rec', 'Yds', 'Receiving Grade
 
 # Adding Individual player grade lookup
 
-st.write("Player Grade Lookup")
+st.write("Player Grade Lookup:")
 
 player_choice = st.selectbox('Player', df_selected_team['Player'].unique())
 
 if st.button('Show Player Grade'):
     player_data = rank_df[rank_df['Player'] == player_choice]
     player = player_data[['Rank', 'Player', 'Team', 'Pos', 'Rec', 'Yds', 'Receiving Grade']].round(2)
+
     st.write(player)
