@@ -149,9 +149,12 @@ scoring_df['Receiving Grade'] = (scoring_df['Receiving Grade'] - scoring_df['Rec
 
 # Adding Rank Column for readability
 
-scoring_df['Rank'] = scoring_df['Receiving Grade'].rank(ascending=False)
+rank_df = pd.concat([df_selected_team, scoring_df['Receiving Grade']], axis=1)
 
-st.write(scoring_df[['Rank','Player', 'Team', 'Pos', 'Receiving Grade']].sort_values(by='Receiving Grade', ascending=False).head().round(2))
+rank_df['Rank'] = rank_df['Receiving Grade'].rank(ascending=False)
+
+
+st.write(rank_df[['Rank','Player', 'Team', 'Pos', 'Rec', 'Yds', 'Receiving Grade']].sort_values(by='Receiving Grade', ascending=False).head().round(2))
 
 # Adding Individual player grade lookup
 
@@ -160,7 +163,6 @@ st.write("Player Grade Lookup")
 player_choice = st.selectbox('Player', df_selected_team['Player'].unique())
 
 if st.button('Show Player Grade'):
-    player_data = scoring_df[scoring_df['Player'] == player_choice]
-    player = player_data[['Rank', 'Player', 'Team', 'Pos', 'Receiving Grade']].round(2)
-
+    player_data = rank_df[rank_df['Player'] == player_choice]
+    player = player_data[['Rank', 'Player', 'Team', 'Pos', 'Rec', 'Yds', 'Receiving Grade']].round(2)
     st.write(player)
