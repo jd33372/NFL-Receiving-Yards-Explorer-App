@@ -84,20 +84,8 @@ y_axis = st.sidebar.selectbox('Y Axis', ['G', 'Tgt', 'Rec', 'Yds', 'Y/R', 'TD', 
 if st.sidebar.button('Generate Scatter Plot'):
     st.header('Scatter Plot between ' + x_axis + ' and ' + y_axis)
     
-    fig = go.Figure()
-    fig.add_trace(go.Scatter(
-        x=df_selected_team[x_axis],
-        y=df_selected_team[y_axis],
-        text=df_selected_team['Player'],
-        hoverinfo='text',
-        mode='markers'
-            
-    ))
-    fig.update_layout(
-        title=f'{y_axis} vs {x_axis}',
-        xaxis_title=x_axis,
-        yaxis_title=y_axis
-    )
+    # Scatter plot with OLS (Ordinary Least Sqaures) trendline 
+    fig = px.scatter(df_selected_team, x=x_axis, y=y_axis, hover_data=['Player'], trendline='ols')
     st.plotly_chart(fig)
 
 # Average Yards per position
@@ -108,9 +96,8 @@ pos_avg = df_selected_team.groupby('Pos')['Yds'].mean().reset_index().round(2)
 
 if st.button('Average Receiving Yards by Position'):
     st.header('Average Receiving Yards by Position for the Year of ' + str(selected_year))
-
-    # Scatter plot with OLS (Ordinary Least Sqaures) trendline 
-    fig = px.scatter(df_selected_team, x=x_axis, y=y_axis, hover_data=['Player'], trendline='ols', title=f'Scatter Plot of {y_axis} vs {x_axis}')
+ 
+    fig = px.bar(df_selected_team, x='Pos', y='Yds')
     st.plotly_chart(fig)
     
 # Find Best Graded Receivers
@@ -157,6 +144,7 @@ if st.button('Show Player Grade'):
     player = player_data[['Rank', 'Player', 'Age', 'Team', 'Pos', 'Rec', 'Yds', 'Receiving Grade']].round(2)
 
     st.write(player)
+
 
 
 
