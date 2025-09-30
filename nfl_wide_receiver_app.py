@@ -144,7 +144,7 @@ if st.button('Catch Pct by Team'):
         textposition='auto',
         orientation='h'
     ))
-    fig.updata_layout(
+    fig.update_layout(
         title='Catch Pct. by Team',
         xaxis_title='Catch Pct',
         yaxis_title='Team'
@@ -195,6 +195,7 @@ if st.button('Show Player Grade'):
     player = player_data[['Rank', 'Player', 'Age', 'Team', 'Pos', 'Rec', 'Yds', 'Receiving Grade']].round(2)
 
     st.write(player)
+
 
 
 
