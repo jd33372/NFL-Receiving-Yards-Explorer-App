@@ -89,7 +89,6 @@ if st.sidebar.button('Generate Scatter Plot'):
         x=df_selected_team[x_axis],
         y=df_selected_team[y_axis],
         text=df_selected_team['Player'],
-        line='ols',
         hoverinfo='text',
         mode='markers'
             
@@ -168,6 +167,7 @@ if st.button('Show Player Grade'):
     player = player_data[['Rank', 'Player', 'Age', 'Team', 'Pos', 'Rec', 'Yds', 'Receiving Grade']].round(2)
 
     st.write(player)
+
 
 
 
