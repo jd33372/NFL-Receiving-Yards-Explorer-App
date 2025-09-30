@@ -97,7 +97,7 @@ pos_avg = df_selected_team.groupby('Pos')['Yds'].mean().reset_index().round(2)
 if st.button('Average Receiving Yards by Position'):
     st.header('Average Receiving Yards by Position for the Year of ' + str(selected_year))
  
-    fig = px.bar(pos_avg, x='Pos', y='Yds')
+    fig = px.bar(pos_avg, x='Pos', y='Yds', text='Yds')
     st.plotly_chart(fig)
     
 # Find Best Graded Receivers
@@ -144,6 +144,7 @@ if st.button('Show Player Grade'):
     player = player_data[['Rank', 'Player', 'Age', 'Team', 'Pos', 'Rec', 'Yds', 'Receiving Grade']].round(2)
 
     st.write(player)
+
 
 
 
