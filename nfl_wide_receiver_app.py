@@ -123,7 +123,31 @@ if st.button('Average Receiving Yards by Position'):
     )
     st.plotly_chart(fig)
 
+# Finding Teams with best Catch Percentage
 
+team_catch_pct = df_selected_team.groupby('Team')[['Rec', 'Tgt']].sum().reset_index().sort_values(ascending=True)
+
+# Creating Team catch pct column for graphing
+team_catch_pct['Team Catch Pct'] = team_catch_pct['Rec'] / team_catch_pct['Tgt']
+
+if st.button('Catch Pct by Team'):
+    st.header('Catch Pct by Team for the Year of' + str(selected_year))
+
+    fig = go.Figure()
+    fig.add_trace(go.Bar(
+        x=team_catch_pct['Team Catch Pct'],
+        y=team_catch_pct['Team'],
+        text=team_catch_pct['Team Catch Pct'].round(2), 
+        textposition='auto',
+        orientation='h'
+    ))
+    fig.updata_layout(
+        title='Catch Pct. by Team',
+        xaxis_title='Catch Pct',
+        yaxis_title='Team'
+    )
+    st.plotly_chart(fig)
+    
 # Find Best Graded Receivers
 
 st.header('Top Graded Receivers in ' + str(selected_year))
@@ -168,6 +192,7 @@ if st.button('Show Player Grade'):
     player = player_data[['Rank', 'Player', 'Age', 'Team', 'Pos', 'Rec', 'Yds', 'Receiving Grade']].round(2)
 
     st.write(player)
+
 
 
 
