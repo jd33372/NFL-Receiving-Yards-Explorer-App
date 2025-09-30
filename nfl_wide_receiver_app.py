@@ -5,7 +5,7 @@ import base64
 import seaborn as sns
 from sklearn.preprocessing import MinMaxScaler
 import matplotlib.pyplot as plt
-import plotly.graph_objects as go 
+import plotly.express as px
 
 # python -m streamlit run nfl_wide_receiver_app.py
 
@@ -108,19 +108,9 @@ pos_avg = df_selected_team.groupby('Pos')['Yds'].mean().reset_index().round(2)
 
 if st.button('Average Receiving Yards by Position'):
     st.header('Average Receiving Yards by Position for the Year of ' + str(selected_year))
-    
-    fig = go.Figure()
-    fig.add_trace(go.Bar(
-        x=pos_avg['Pos'],
-        y=pos_avg['Yds'],
-        text=pos_avg['Yds'],
-        textposition='auto'
-    ))
-    fig.update_layout(
-        title='Average Yards by Position',
-        xaxis_title='Position',
-        yaxis_title='Average Yards'
-    )
+
+    # Scatter plot with OLS (Ordinary Least Sqaures) trendline 
+    fig = px.scatter(df_selected_team, x=x_axis, y=y_axis, hover_data=['Player'], trendline='ols', title=f'Scatter Plot of {y_axis} vs {x_axis}')
     st.plotly_chart(fig)
     
 # Find Best Graded Receivers
@@ -167,6 +157,7 @@ if st.button('Show Player Grade'):
     player = player_data[['Rank', 'Player', 'Age', 'Team', 'Pos', 'Rec', 'Yds', 'Receiving Grade']].round(2)
 
     st.write(player)
+
 
 
 
