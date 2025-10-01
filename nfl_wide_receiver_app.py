@@ -43,7 +43,9 @@ except Exception as e:
   sorted_uni_team = []
     
 selected_team = st.sidebar.multiselect('Team', sorted_uni_team, sorted_uni_team)
-
+all_options = st.checkbox('Select all Options')
+if all_options: 
+    selected_team
 # Sidebar - Position selection
 
 unique_pos = ['WR', 'TE', 'RB', 'FB']
@@ -144,6 +146,7 @@ if st.button('Show Player Grade'):
     player = player_data[['Rank', 'Player', 'Age', 'Team', 'Pos', 'Rec', 'Yds', 'Receiving Grade']].round(2)
 
     st.write(player)
+
 
 
 
