@@ -118,12 +118,11 @@ try:
     normalizer = MinMaxScaler()
     normalized_stats = normalizer.fit_transform(stats)
     normalized_df = pd.DataFrame(normalized_stats, columns=stats.columns, index=df_selected_team.index)
-    scoring_df = pd.concat([df_selected_team[['Player', 'Team', 'Pos']], normalized_df], axis=1)
 # Calculate Receiving Grade 
-    scoring_df['Receiving Grade'] = scoring_df.sum(numeric_only=True, axis=1) - scoring_df['Fmb'] 
-    scoring_df['Receiving Grade'] = (scoring_df['Receiving Grade'] - scoring_df['Receiving Grade'].min()) / (scoring_df['Receiving Grade'].max() - scoring_df['Receiving Grade'].min()) * 100
+    normalized_df['Receiving Grade'] = normalized_df.sum(numeric_only=True, axis=1) - scoring_df['Fmb'] 
+    normalized_df['Receiving Grade'] = (normalized_df['Receiving Grade'] - normalized_df['Receiving Grade'].min()) / (normalized_df['Receiving Grade'].max() - normalized_df['Receiving Grade'].min()) * 100
 # Adding Rank Column for readability
-    rank_df = pd.concat([df_selected_team, scoring_df['Receiving Grade']], axis=1)
+    rank_df = pd.concat([df_selected_team, normalized_df['Receiving Grade']], axis=1)
     rank_df['Rank'] = rank_df['Receiving Grade'].rank(ascending=False)
     st.write(rank_df[['Rank','Player', 'Age', 'Team', 'Pos', 'Rec', 'Yds', 'Receiving Grade']].sort_values(by='Receiving Grade', ascending=False).head().round(2))
 except ValueError:
@@ -139,6 +138,7 @@ if st.button('Show Player Grade'):
     player = player_data[['Rank', 'Player', 'Age', 'Team', 'Pos', 'Rec', 'Yds', 'Receiving Grade']].round(2)
 
     st.write(player)
+
 
 
 
