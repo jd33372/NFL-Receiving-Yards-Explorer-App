@@ -11,9 +11,7 @@ import plotly.express as px
 
 st.header("NFL Receiving Stats Explorer")
 
-st.markdown("This app performs webscraping of NFL Football Player receiving stats & provides visualizations along with the Wide Receiver Grading tool."
-            
-            "The data is pulled from https://www.pro-football-reference.com/")
+st.markdown("This app performs webscraping of NFL receiving stats from https://www.pro-football-reference.com/ & provides visualizations to go along with the Wide Receiver Grading tool")
 
 st.sidebar.header('User Input Features')
 selected_year = st.sidebar.selectbox('Year', list(reversed(range(1978,2026))))
@@ -139,6 +137,7 @@ if st.button('Show Player Grade'):
     player = player_data[['Rank', 'Player', 'Age', 'Team', 'Pos', 'Rec', 'Yds', 'Receiving Grade']].round(2)
 
     st.write(player)
+
 
 
 
