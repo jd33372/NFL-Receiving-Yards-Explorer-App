@@ -40,7 +40,6 @@ try:
   sorted_uni_team = sorted([str(team) for team in unique_teams])
 except Exception as e:
   st.error(f"Error processing team data: {e}")
-  st.exception(e)
   sorted_uni_team = []
     
 selected_team = st.sidebar.multiselect('Team', sorted_uni_team, sorted_uni_team)
@@ -145,6 +144,7 @@ if st.button('Show Player Grade'):
     player = player_data[['Rank', 'Player', 'Age', 'Team', 'Pos', 'Rec', 'Yds', 'Receiving Grade']].round(2)
 
     st.write(player)
+
 
 
 
