@@ -74,7 +74,7 @@ if st.button('Intercorrelation Heatmap'):
     mask[np.triu_indices_from(mask)] = True
     with sns.axes_style("white"):
         f, ax = plt.subplots(figsize=(7, 5))
-        ax = sns.heatmap(corr, mask=mask, vmax=1, square=True)
+        ax = sns.heatmap(corr, mask=mask, vmax=1, square=True, cmap='BuPu')
     st.pyplot(f)
 
 # Scatter Plot
@@ -137,6 +137,7 @@ if st.button('Show Player Grade'):
     player = player_data[['Rank', 'Player', 'Age', 'Team', 'Pos', 'Rec', 'Yds', 'Receiving Grade']].round(2)
 
     st.write(player)
+
 
 
 
