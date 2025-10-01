@@ -86,11 +86,10 @@ if st.sidebar.button('Generate Scatter Plot'):
     st.header('Scatter Plot between ' + x_axis + ' and ' + y_axis)
     
     # Scatter plot with OLS (Ordinary Least Sqaures) trendline 
-try:
+
     fig = px.scatter(df_selected_team, x=x_axis, y=y_axis, hover_data=['Player'], trendline='ols')
     st.plotly_chart(fig)
-except DuplicateError:
-    pass
+
 
 # Average Yards per position
 
@@ -140,6 +139,7 @@ if st.button('Show Player Grade'):
     player = player_data[['Rank', 'Player', 'Age', 'Team', 'Pos', 'Rec', 'Yds', 'Receiving Grade']].round(2)
 
     st.write(player)
+
 
 
 
