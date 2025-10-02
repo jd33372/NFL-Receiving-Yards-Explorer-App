@@ -107,7 +107,7 @@ if st.button('Average YPG by Position'):
 
 st.header('Top Graded Receivers in ' + str(selected_year))
 
-st.markdown(" A player's Receiving Grade is calculated by normalizing all significant receiving statistics and then adding them together, with a penalty for total fumbles. The number that is derived from the previous step is then scaled on a range from 0 to 100, with 100 being the best possible score.")
+st.markdown(" A player's Receiving Grade is calculated by normalizing all significant receiving statistics and then adding them together. The number that is derived from the previous step is then scaled on a range from 0 to 100 (100 being the highest possible score) with a penalty assigned for a player's total fumbles")
 
 dfs_copy = df_selected_team.copy()
 dfs_copy = dfs_copy.drop(columns=['Age'])
@@ -139,6 +139,7 @@ if st.button('Show Player Grade'):
     player = player_data[['Rank', 'Player', 'Age', 'Team', 'Pos', 'Rec', 'Yds', 'Receiving Grade']].round(2)
 
     st.write(player)
+
 
 
 
