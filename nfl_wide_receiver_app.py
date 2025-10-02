@@ -31,7 +31,7 @@ def load_data(year):
     return playerstats
 playerstats = load_data(selected_year)
 
-playerstats['Tgt Share'] = (playerstats['Tgt'] / playerstats.groupby('Team')['Tgt'].transform('sum')).round(2) * 100 #
+playerstats['Tgt Share'] = (playerstats['Tgt'] / playerstats.groupby('Team')['Tgt'].transform('sum')).round(4) * 100 #
 # Sidebar - Team selection
 # Clean and sort team names, handling potential NaN values
 
@@ -138,6 +138,7 @@ if st.button('Show Player Grade'):
     player = player_data[['Rank', 'Player', 'Age', 'Team', 'Pos', 'Rec', 'Yds', 'Receiving Grade']].round(2)
 
     st.write(player)
+
 
 
 
