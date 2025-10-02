@@ -120,8 +120,8 @@ try:
     normalized_stats = normalizer.fit_transform(stats)
     normalized_df = pd.DataFrame(normalized_stats, columns=stats.columns, index=dfs_copy.index)
 # Calculate Receiving Grade 
-    normalized_df['Receiving Grade'] = normalized_df.sum(numeric_only=True, axis=1) - normalized_df['Fmb']
-    normalized_df['Receiving Grade'] = (normalized_df['Receiving Grade'] - normalized_df['Receiving Grade'].min()) / (normalized_df['Receiving Grade'].max() - normalized_df['Receiving Grade'].min()) * 100 
+    normalized_df['Receiving Grade'] = normalized_df.sum(numeric_only=True, axis=1)
+    normalized_df['Receiving Grade'] = (normalized_df['Receiving Grade'] - normalized_df['Receiving Grade'].min()) / (normalized_df['Receiving Grade'].max() - normalized_df['Receiving Grade'].min()) * 100 - normalized_df['Fmb']
 # Adding Rank Column for readability
     rank_df = pd.concat([df_selected_team, normalized_df['Receiving Grade']], axis=1)
     rank_df['Rank'] = rank_df['Receiving Grade'].rank(ascending=False)
@@ -139,6 +139,7 @@ if st.button('Show Player Grade'):
     player = player_data[['Rank', 'Player', 'Age', 'Team', 'Pos', 'Rec', 'Yds', 'Receiving Grade']].round(2)
 
     st.write(player)
+
 
 
 
