@@ -109,9 +109,9 @@ st.header('Top Graded Receivers in ' + str(selected_year))
 
 st.markdown(" A player's Receiving Grade is calculated by normalizing all significant receiving statistics and then adding them together. The number that is derived from the previous step is then scaled on a range from 0 to 100 (100 being the highest possible score) with a penalty assigned for a player's total fumbles and the percentage of targets they did not catch.")
 
-# Dropping Age, G, and GS to focus on key stats
+# Dropping Age and GS to focus on key stats
 dfs_copy = df_selected_team.copy()
-dfs_copy = dfs_copy.drop(columns=['Age', 'G', 'GS'])
+dfs_copy = dfs_copy.drop(columns=['Age', 'G'])
 stats = dfs_copy.select_dtypes(include=[np.number])
 
 # Normalizing stats using MinMaxScaler
@@ -144,6 +144,7 @@ if st.button('Show Player Grade'):
     player = player_data[['Rank', 'Player', 'Age', 'Team', 'Pos', 'Rec', 'Yds', 'Receiving Grade']].round(2)
 
     st.write(player)
+
 
 
 
