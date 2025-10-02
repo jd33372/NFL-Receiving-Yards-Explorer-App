@@ -101,7 +101,7 @@ if st.sidebar.button('Generate Scatter Plot'):
 pos_avg = df_selected_team.groupby('Pos')['Yds'].mean().reset_index().round(2)
 pos_avg = pos_avg.sort_values(by='Yds', ascending=False)
 
-if st.button('Average Receiving Yards by Position'):
+if st.button('Average Target Share by Position'):
     st.header('Average Target Share by Position for the Year of ' + str(selected_year))
  
     fig = px.bar(pos_avg, x='Pos', y='Tgt Share', text='Tgt Share')
@@ -141,6 +141,7 @@ if st.button('Show Player Grade'):
     player = player_data[['Rank', 'Player', 'Age', 'Team', 'Pos', 'Rec', 'Yds', 'Receiving Grade']].round(2)
 
     st.write(player)
+
 
 
 
