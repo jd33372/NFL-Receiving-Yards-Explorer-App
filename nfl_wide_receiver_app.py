@@ -107,7 +107,7 @@ if st.button('Average YPG by Position'):
 
 st.header('Top Graded Receivers in ' + str(selected_year))
 
-st.markdown(" A player's Receiving Grade is calculated by normalizing all significant receiving statistics and then adding them together. The number that is derived from the previous step is then scaled on a range from 0 to 100 (100 being the highest possible score) with a penalty assigned for a player's total fumbles and the percentage of targets they did not catch.")
+st.markdown(" A player's Receiving Grade is calculated by normalizing all significant receiving statistics and then adding them together. The number that is derived from the previous step is then scaled on a range from 0 to 100 (100 being the highest possible score) with a penalty assigned for a player's total fumbles.")
 
 # Dropping Age and GS to focus on key stats
 dfs_copy = df_selected_team.copy()
@@ -125,8 +125,6 @@ try:
     normalized_df['Receiving Grade'] = (normalized_df['Receiving Grade'] - normalized_df['Receiving Grade'].min()) / (normalized_df['Receiving Grade'].max() - normalized_df['Receiving Grade'].min()) * 100 - normalized_df['Fmb']
 # Concatanating dataframe with Receiver Grades
     rank_df = pd.concat([df_selected_team, normalized_df['Receiving Grade']], axis=1)
-# Adding Penalties for Fumbles and percent of targets not caught 
-    rank_df['Receiving Grade'] = rank_df['Receiving Grade'] + (100 - rank_df['Ctch%'] * 0.1)
 # Adding Rank Column for readability
     rank_df['Rank'] = rank_df['Receiving Grade'].rank(ascending=False)
     
@@ -144,6 +142,7 @@ if st.button('Show Player Grade'):
     player = player_data[['Rank', 'Player', 'Age', 'Team', 'Pos', 'Rec', 'Yds', 'Receiving Grade']].round(2)
 
     st.write(player)
+
 
 
 
