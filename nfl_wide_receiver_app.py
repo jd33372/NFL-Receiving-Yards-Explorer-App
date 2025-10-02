@@ -31,10 +31,6 @@ def load_data(year):
     return playerstats
 playerstats = load_data(selected_year)
 
-# Adding Target Share Column & repositoning it
-playerstats['Tgt Share'] = (playerstats['Tgt'] / playerstats.groupby('Team')['Tgt'].transform('sum')).round(4) * 100 
-col = playerstats.pop('Tgt Share')
-playerstats.insert(18, 'Tgt Share', col)
 # Sidebar - Team selection
 # Clean and sort team names, handling potential NaN values
 
@@ -82,8 +78,8 @@ if st.button('Intercorrelation Heatmap'):
 
 # Scatter Plot
 st.sidebar.header('Scatter Plot Settings')
-x_axis = st.sidebar.selectbox('X Axis', ['G', 'Tgt', 'Rec', 'Yds', 'Y/R', 'TD', '1D', 'Succ%', 'R/G', 'Y/G', 'Ctch%', 'Y/Tgt', 'Tgt Share', 'Fmb'])
-y_axis = st.sidebar.selectbox('Y Axis', ['G', 'Tgt', 'Rec', 'Yds', 'Y/R', 'TD', '1D', 'Succ%', 'R/G', 'Y/G', 'Ctch%', 'Y/Tgt', 'Tgt Share', 'Fmb'])
+x_axis = st.sidebar.selectbox('X Axis', ['G', 'Tgt', 'Rec', 'Yds', 'Y/R', 'TD', '1D', 'Succ%', 'R/G', 'Y/G', 'Ctch%', 'Y/Tgt', 'Fmb'])
+y_axis = st.sidebar.selectbox('Y Axis', ['G', 'Tgt', 'Rec', 'Yds', 'Y/R', 'TD', '1D', 'Succ%', 'R/G', 'Y/G', 'Ctch%', 'Y/Tgt', 'Fmb'])
 
 if st.sidebar.button('Generate Scatter Plot'):
     st.header('Scatter Plot between ' + x_axis + ' and ' + y_axis)
@@ -98,13 +94,13 @@ if st.sidebar.button('Generate Scatter Plot'):
 
 # Get average yards by position
 
-pos_avg = df_selected_team.groupby('Pos')['Tgt Share'].mean().reset_index().round(2)
-pos_avg = pos_avg.sort_values(by='Tgt Share', ascending=False)
+pos_avg = df_selected_team.groupby('Pos')['Y/G'].mean().reset_index().round(2)
+pos_avg = pos_avg.sort_values(by='Y/G', ascending=False)
 
-if st.button('Average Target Share by Position'):
-    st.header('Average Target Share by Position for the Year of ' + str(selected_year))
+if st.button('Average YPG by Position'):
+    st.header('Average Yard per Game by Position for the Year of ' + str(selected_year))
  
-    fig = px.bar(pos_avg, x='Pos', y='Tgt Share', text='Tgt Share')
+    fig = px.bar(pos_avg, x='Pos', y='Y/G', text='Y/G')
     st.plotly_chart(fig)
     
 # Find Best Graded Receivers
@@ -141,6 +137,7 @@ if st.button('Show Player Grade'):
     player = player_data[['Rank', 'Player', 'Age', 'Team', 'Pos', 'Rec', 'Yds', 'Receiving Grade']].round(2)
 
     st.write(player)
+
 
 
 
