@@ -27,6 +27,7 @@ def load_data(year):
     raw = df.drop(df[df.Age == 'Age'].index) # Deletes repeating headers
     raw = raw.fillna(0)
     raw = raw.drop_duplicates(['Player'], keep='first')
+    raw['Tgt Share'] = (raw['Tgt'] / raw.groupby('Team')['Tgt'].transform('sum')) * 100 # monitor
     playerstats = raw.drop(['Rk'], axis=1)
     return playerstats
 playerstats = load_data(selected_year)
@@ -138,6 +139,7 @@ if st.button('Show Player Grade'):
     player = player_data[['Rank', 'Player', 'Age', 'Team', 'Pos', 'Rec', 'Yds', 'Receiving Grade']].round(2)
 
     st.write(player)
+
 
 
 
