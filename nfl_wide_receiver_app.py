@@ -109,14 +109,16 @@ st.header('Top Graded Receivers in ' + str(selected_year))
 
 st.markdown(" A player's Receiving Grade is calculated by normalizing all significant receiving statistics and then adding them together, with a penalty for total fumbles. The number that is derived from the previous step is then scaled on a range from 0 to 100, with 100 being the best possible score.")
 
-stats = df_selected_team.select_dtypes(include=[np.number])
-stats = df_selected_team.drop(columns=['Age'])
+dfs_copy = df_selected_team.copy()
+dfs_copy = dfs_copy.drop(columns=['Age'])
+stats = dfs_copy.select_dtypes(include=[np.number])
+
 # Normalizing stats using MinMaxScaler
 
 try:
     normalizer = MinMaxScaler()
     normalized_stats = normalizer.fit_transform(stats)
-    normalized_df = pd.DataFrame(normalized_stats, columns=stats.columns, index=df_selected_team.index)
+    normalized_df = pd.DataFrame(normalized_stats, columns=stats.columns, index=dfs_copy.index)
 # Calculate Receiving Grade 
     normalized_df['Receiving Grade'] = normalized_df.sum(numeric_only=True, axis=1) - normalized_df['Fmb']
     normalized_df['Receiving Grade'] = (normalized_df['Receiving Grade'] - normalized_df['Receiving Grade'].min()) / (normalized_df['Receiving Grade'].max() - normalized_df['Receiving Grade'].min()) * 100 
@@ -137,6 +139,7 @@ if st.button('Show Player Grade'):
     player = player_data[['Rank', 'Player', 'Age', 'Team', 'Pos', 'Rec', 'Yds', 'Receiving Grade']].round(2)
 
     st.write(player)
+
 
 
 
