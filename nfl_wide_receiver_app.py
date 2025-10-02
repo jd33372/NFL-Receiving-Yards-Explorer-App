@@ -83,7 +83,7 @@ if st.button('Intercorrelation Heatmap'):
 # Scatter Plot
 st.sidebar.header('Scatter Plot Settings')
 x_axis = st.sidebar.selectbox('X Axis', ['G', 'Tgt', 'Rec', 'Yds', 'Y/R', 'TD', '1D', 'Succ%', 'R/G', 'Y/G', 'Ctch%', 'Y/Tgt', 'Tgt Share', 'Fmb'])
-y_axis = st.sidebar.selectbox('Y Axis', ['G', 'Tgt', 'Rec', 'Yds', 'Y/R', 'TD', '1D', 'Succ%', 'R/G', 'Y/G', 'Ctch%', 'Y/Tgt', 'Tgt Share,', 'Fmb'])
+y_axis = st.sidebar.selectbox('Y Axis', ['G', 'Tgt', 'Rec', 'Yds', 'Y/R', 'TD', '1D', 'Succ%', 'R/G', 'Y/G', 'Ctch%', 'Y/Tgt', 'Tgt Share', 'Fmb'])
 
 if st.sidebar.button('Generate Scatter Plot'):
     st.header('Scatter Plot between ' + x_axis + ' and ' + y_axis)
@@ -141,6 +141,7 @@ if st.button('Show Player Grade'):
     player = player_data[['Rank', 'Player', 'Age', 'Team', 'Pos', 'Rec', 'Yds', 'Receiving Grade']].round(2)
 
     st.write(player)
+
 
 
 
