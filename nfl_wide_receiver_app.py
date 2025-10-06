@@ -98,7 +98,7 @@ pos_avg = df_selected_team.groupby('Pos')['Y/G'].mean().reset_index().round(2)
 pos_avg = pos_avg.sort_values(by='Y/G', ascending=False)
 
 if st.button('Average YPG by Position'):
-    st.header('Average Yards Per Game by Position for the Year of ' + str(selected_year))
+    st.header('Average Yards Per Game by Position in' + str(selected_year))
  
     fig = px.bar(pos_avg, x='Pos', y='Y/G', text='Y/G')
     st.plotly_chart(fig)
@@ -107,7 +107,7 @@ if st.button('Average YPG by Position'):
 
 st.header('Top Graded Receivers in ' + str(selected_year))
 
-st.markdown(" A player's Receiving Grade is calculated by normalizing all significant receiving statistics and then adding them together. The number that is derived from the previous step is then scaled on a range from 0 to 100 (100 being the highest possible score) with a penalty assigned for a player's total fumbles and percent of targets they did not catch.")
+st.markdown(" A player's Receiving Grade is calculated by normalizing all significant receiving statistics and then adding them together. The number that is derived from the previous step is then scaled on a range from 0 to 99 (99 being the highest possible score) with a penalty assigned for a player's total fumbles and percent of targets they did not catch.")
 
 # Dropping Age and GS to focus on key stats
 dfs_copy = df_selected_team.copy()
@@ -126,7 +126,7 @@ try:
     normalized_df['Receiving Grade'] = normalized_df.sum(numeric_only=True, axis=1)
 # Adding Penalty
     normalized_df['Receiving Grade'] = normalized_df['Receiving Grade'] - (normalized_df['Fmb'] + normalized_df['NC%'])
-    normalized_df['Receiving Grade'] = (normalized_df['Receiving Grade'] - normalized_df['Receiving Grade'].min()) / (normalized_df['Receiving Grade'].max() - normalized_df['Receiving Grade'].min()) * 100 
+    normalized_df['Receiving Grade'] = (normalized_df['Receiving Grade'] - normalized_df['Receiving Grade'].min()) / (normalized_df['Receiving Grade'].max() - normalized_df['Receiving Grade'].min()) * 99 
 # Concatanating dataframe with Receiver Grades
     rank_df = pd.concat([df_selected_team, normalized_df['Receiving Grade']], axis=1)
 # Adding Rank Column for readability
@@ -146,6 +146,7 @@ if st.button('Show Player Grade'):
     player = player_data[['Rank', 'Player', 'Age', 'Team', 'Pos', 'Rec', 'Yds', 'Receiving Grade']].round(2)
 
     st.write(player)
+
 
 
 
