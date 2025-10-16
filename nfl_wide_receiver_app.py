@@ -132,7 +132,7 @@ try:
 # Adding Rank Column for readability
     rank_df['Rank'] = rank_df['Receiving Grade'].rank(ascending=False)
     
-    st.write(rank_df[['Rank','Player', 'Age', 'Team', 'Pos', 'Rec', 'Yds', 'Receiving Grade']].sort_values(by='Receiving Grade', ascending=False).head().round(2))
+    st.write(rank_df[['Rank','Player', 'Age', 'Team', 'Pos', 'Rec', 'Yds', 'Receiving Grade']].sort_values(by='Receiving Grade', ascending=False).head(10).round(2))
 except ValueError:
     pass
 # Adding Individual player grade lookup
@@ -146,6 +146,7 @@ if st.button('Show Player Grade'):
     player = player_data[['Rank', 'Player', 'Age', 'Team', 'Pos', 'Rec', 'Yds', 'Receiving Grade']].round(2)
 
     st.write(player)
+
 
 
 
