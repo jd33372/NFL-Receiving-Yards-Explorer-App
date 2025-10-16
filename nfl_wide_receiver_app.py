@@ -111,7 +111,7 @@ st.markdown(" A player's Receiving Grade is calculated by normalizing all signif
 
 # Dropping Age and GS to focus on key stats
 dfs_copy = df_selected_team.copy()
-dfs_copy = dfs_copy.drop(columns=['Age', 'GS'])
+dfs_copy = dfs_copy.drop(columns=['Age', 'GS', 'G'])
 # Adding Not caught percentage
 dfs_copy['NC%'] = 100 - dfs_copy['Ctch%']
 stats = dfs_copy.select_dtypes(include=[np.number])
@@ -146,6 +146,7 @@ if st.button('Show Player Grade'):
     player = player_data[['Rank', 'Player', 'Age', 'Team', 'Pos', 'Rec', 'Yds', 'Receiving Grade']].round(2)
 
     st.write(player)
+
 
 
 
